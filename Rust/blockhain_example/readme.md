@@ -5,7 +5,7 @@ This project was written to learn the basic concepts of PoW. Based on this [guid
 <details><summary>CLI Commands</summary>
 <p>
 
-#### create block with a data
+#### create block with data
 
 ```PowerShell
    create b <data>
