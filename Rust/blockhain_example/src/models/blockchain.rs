@@ -70,11 +70,11 @@ fn validate_blocks_seq(added_block: &Block, latest_block: &Block) -> Result<bool
     Ok(true)
 }
 
-pub struct App {
+pub struct BlockChain {
     pub blocks: Vec<Block>,
 }
 
-impl App {
+impl BlockChain {
     pub fn new() -> Self {
         Self { blocks: vec![] }
     }

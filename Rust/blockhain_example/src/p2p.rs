@@ -1,4 +1,4 @@
-use crate::models::{App, Block};
+use crate::models::{BlockChain, Block};
 
 use libp2p::{
     floodsub::{Floodsub, FloodsubEvent, Topic},
@@ -44,12 +44,12 @@ pub struct AppBehaviour {
     #[behaviour(ignore)]
     pub init_sender: mpsc::UnboundedSender<bool>,
     #[behaviour(ignore)]
-    pub app: App,
+    pub app: BlockChain,
 }
 
 impl AppBehaviour {
     pub async fn new(
-        app: App,
+        app: BlockChain,
         response_sender: mpsc::UnboundedSender<ChainResponse>,
         init_sender: mpsc::UnboundedSender<bool>,
     ) -> Self {

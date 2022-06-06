@@ -1,11 +1,11 @@
-use std::{io, time::Duration};
+use std::{io, time::Duration, env};
 
 use blockhain_example::{
-    models::App,
+    models::BlockChain,
     p2p::{self, EventType, LocalChainRequest, CHAIN_TOPIC},
 };
 use libp2p::{
-    core::{connection::Event, transport::upgrade},
+    core::{transport::upgrade},
     futures::StreamExt,
     mplex::MplexConfig,
     noise::{Keypair, NoiseConfig, X25519Spec},
@@ -18,11 +18,12 @@ use tokio::{
     io::{stdin, AsyncBufReadExt, BufReader},
     select, spawn,
     sync::mpsc,
-    time::sleep,
 };
 
 #[tokio::main]
 async fn main() {
+    #[cfg(debug_assertions)]
+    env::set_var("RUST_LOG", "info");
     pretty_env_logger::init();
     info!("Peer ID: {}", p2p::PEER_ID.clone());
     let (response_sender, mut response_rcv) = mpsc::unbounded_channel();
@@ -39,7 +40,7 @@ async fn main() {
         .boxed();
 
     let app_behaviour =
-        p2p::AppBehaviour::new(App::new(), response_sender, init_sender.clone()).await;
+        p2p::AppBehaviour::new(BlockChain::new(), response_sender, init_sender.clone()).await;
 
     let mut swarm = SwarmBuilder::new(transp, app_behaviour, p2p::PEER_ID.clone())
         .executor(Box::new(|fut| {
@@ -116,7 +117,7 @@ async fn main() {
         });
     }
 }
-
+/// 4Fun
 pub trait SelectHandler<HandledType>
 where
     Self: Sized,
