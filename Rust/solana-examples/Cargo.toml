@@ -1,0 +1,7 @@
+[workspace]
+members = [
+    "app/",
+    "programs/*",
+    "tests/rust_test",
+    "client/"
+]

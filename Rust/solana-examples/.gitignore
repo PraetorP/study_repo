@@ -1,0 +1,19 @@
+
+.anchor
+.DS_Store
+.idea
+.vscode
+.vs
+# target
+
+/target/**/*
+!/target/deploy/
+/target/deploy/*.*
+!/target/deploy/*.json
+
+**/*.rs.bk
+node_modules
+
+
+
+

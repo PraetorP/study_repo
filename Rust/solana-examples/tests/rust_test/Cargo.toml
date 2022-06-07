@@ -1,0 +1,29 @@
+[package]
+name = "rust_test"
+version = "0.1.0"
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+no-entrypoint = []
+test-bpf = []
+default = ["test-bpf"]
+
+[dependencies]
+solana-program = "1.8.5"
+hello_world = {path = "../../programs/hello_world"}
+proxy_token_emission = {path = "../../programs/proxy_token_emission"}
+
+
+[dev-dependencies]
+solana-program-test = "1.8.5"
+solana-sdk = "1.8.5"
+rust_client = {path = "../../app"}
+anchor-client = {path = "../../client"}
+anyhow = "1.0.52"
+borsh = "0.9.1"
+spl-token = { version = "3.2.0", features = ["no-entrypoint"] }
+spl-associated-token-account = {version = "1.0.3", features = ["no-entrypoint"]}
+
+[lib]
+crate-type = ["cdylib", "lib"]

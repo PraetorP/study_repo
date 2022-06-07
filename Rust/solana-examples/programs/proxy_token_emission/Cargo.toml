@@ -1,0 +1,31 @@
+[package]
+name = "proxy_token_emission"
+version = "0.1.0"
+description = "Created with Anchor"
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "proxy_token_emission"
+
+[features]
+no-entrypoint = []
+no-idl = []
+cpi = ["no-entrypoint"]
+default = ["test-bpf"]
+test-bpf = []
+
+[dependencies]
+anchor-lang = "0.20.1"
+anchor-spl ="0.20.1"
+spl-token = { version = "3.2.0", features = ["no-entrypoint"] }
+spl-associated-token-account = "1.0.3"
+
+[dev-dependencies]
+anchor-client = { path = "../../client" }
+bytemuck = "1.4.0"
+solana-program-test = "1.8.5"
+solana-sdk = "1.8.5"
+anyhow = "1.0.52"
+arrayref = "0.3.6"
+bincode = "1.3.3"

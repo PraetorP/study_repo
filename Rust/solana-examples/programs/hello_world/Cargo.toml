@@ -1,0 +1,28 @@
+[package]
+name = "hello_world"
+version = "0.1.0"
+description = "Created with Anchor"
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "hello_world"
+
+[features]
+no-entrypoint = []
+no-idl = []
+cpi = ["no-entrypoint"]
+test-bpf = []
+default = []
+
+[dependencies]
+anchor-lang = "0.20.1"
+anchor-spl = "0.20.1"
+
+[dev-dependencies]
+solana-program-test = "1.7.11"
+solana-sdk = "1.7.11"
+solana-program = "1.7.11"
+# rust_client = {path = "../../app"}
+anchor-client = {path = "../../client"}
+

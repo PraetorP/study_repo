@@ -1,0 +1,3 @@
+# Uniswap-API
+This crate is the basis for the implementation of interaction with the contracts of the Eth network. The implementation of calling some functions of UniSwap (V2) contracts has been completed.
+The [results](https://rinkeby.etherscan.io/tx/0xb33f49ed730b1c7e473a27670830577700864aead05d40923f37518162d77c29) of the execution of the exchange of ether for DAI stablecoin (with a minimum number of 5 tokens).
