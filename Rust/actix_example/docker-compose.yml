@@ -1,5 +1,6 @@
 version: '3.8'
 services:
+  #server name
   postgres:
     image: postgres:latest
     restart: always
@@ -7,14 +8,30 @@ services:
       POSTGRES_PASSWORD: actix
       POSTGRES_USER: actix
       POSTGRES_DB: actix
-    
+
     ports:
       - 5432:5432
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U actix" ]
+      interval: 30s
+      timeout: 30s
+      retries: 3
     deploy:
       resources:
         limits:
-          memory: 512M 
+          memory: 512M
           cpus: '1'
+
+  adminer:
+    image: adminer
+    container_name: to-do-adminer
+    restart: always
+    ports:
+      - "9191:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   todo_example:
     build: .
     depends_on:
@@ -35,3 +52,42 @@ services:
           cpus: '1'
     ports:
       - 8080:8080
+
+# services:
+#   app_db:
+#     image: postgres:15
+#     container_name: legalfact_db
+#     restart: always
+#     environment:
+#       POSTGRES_PASSWORD: example
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - ./pg_data:/var/lib/postgresql/data
+#     networks:
+#       default:
+#         ipv4_address: 172.25.0.2
+#     healthcheck:
+#       test: ["CMD-SHELL", "pg_isready -U postgres"]
+#       interval: 30s
+#       timeout: 30s
+#       retries: 3
+
+#   adminer:
+#     image: adminer
+#     container_name: legalfact_adminer
+#     restart: always
+#     ports:
+#       - "9191:8080"
+#     networks:
+#       default:
+#         ipv4_address: 172.25.0.3
+#     depends_on:
+#       app_db:
+#         condition: service_healthy
+
+# networks:
+#   default:
+#     ipam:
+#       config:
+#         - subnet: 172.25.0.0/24

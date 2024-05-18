@@ -1,11 +1,8 @@
-use std::io;
-
 use deadpool_postgres::Client;
-use itertools::{any, Itertools};
 use tokio_pg_mapper::FromTokioPostgresRow;
 
 use crate::models::{ToDoItem, ToDoList};
-use eyre::{eyre, Report, Result};
+use eyre::{eyre, Result};
 
 pub async fn get_todos(client: &Client) -> Result<Vec<ToDoList>> {
     let statement = client.prepare("select * from todo_list").await?;
@@ -52,7 +49,7 @@ pub async fn check_todo(client: &Client, list_id: i32, item_id: i32) -> Result<(
         .await?;
 
     match client.execute(&statement, &[&list_id, &item_id]).await? {
-        1 => Ok(()),
-        _ => Err(eyre!("already changed!!!"))
+        0 => Err(eyre!("already changed!!!")),
+        _ => Ok(()),
     }
 }

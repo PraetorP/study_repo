@@ -9,7 +9,6 @@ use crate::models::Block;
 
 use super::DIFFICULTY_PREFIX;
 
-
 pub fn hash_to_binary_representation(hash: &[u8]) -> String {
     let mut res: String = String::default();
     for c in hash {
@@ -31,7 +30,13 @@ pub fn calculate_block_hash(block: &Block) -> Vec<u8> {
     hasher.finalize().as_slice().to_owned()
 }
 
-pub fn calculate_hash(id: u64, timestamp: i64, previous_hash: &str, data: &str, nonce: u64) -> Vec<u8> {
+pub fn calculate_hash(
+    id: u64,
+    timestamp: i64,
+    previous_hash: &str,
+    data: &str,
+    nonce: u64,
+) -> Vec<u8> {
     let data = serde_json::json!({
         "id": id,
         "previous_hash": previous_hash,
@@ -128,13 +133,12 @@ impl BlockChain {
         }
         Ok(true)
     }
-    fn check_for_factors(contents: Vec<isize>, target: isize) -> bool {
-        contents.iter().enumerate().any(|(i, &x)| {
-            contents
-                .iter()
+    fn some(arg1: Vec<isize>, arg2: isize) -> bool {
+        arg1.iter().enumerate().any(|(i, &x)| {
+            arg1.iter()
                 .enumerate()
                 .filter(|&(j, _)| i != j)
-                .any(|(_, &y)| x + y == target)
+                .any(|(_, &y)| x + y == arg2)
         })
     }
 
